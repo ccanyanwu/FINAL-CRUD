@@ -1,7 +1,8 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   var Comment = sequelize.define('Comment', {
-    title: DataTypes.STRING
+    comment_title: DataTypes.STRING,
+    comment_body: DataTypes.STRING
   });
 
   return Comment;

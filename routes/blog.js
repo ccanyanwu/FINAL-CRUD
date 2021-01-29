@@ -92,26 +92,26 @@ router.get('/users', user_controller.user_list);
 // GET request for creating a Category. NOTE This must come before route that displays Category (uses id).
 router.get('/category/create', category_controller.category_create_get);
 
-// POST request for creating Category.
-router.post('/category/create', category_controller.category_create_post);
+// // POST request for creating Category.
+ router.post('/category/create', category_controller.category_create_post);
 
-// GET request to delete Category.
-router.get('/category/:category_id/delete', category_controller.category_delete_get);
+// // GET request to delete Category.
+ router.get('/category/:category_id/delete', category_controller.category_delete_get);
 
-// POST request to delete Category.
-router.post('/category/:category_id/delete', category_controller.category_delete_post);
+// // POST request to delete Category.
+// router.post('/category/:category_id/delete', category_controller.category_delete_post);
 
-// GET request to update Category.
-router.get('/category/:category_id/update', category_controller.category_update_get);
+// // GET request to update Category.
+ router.get('/category/:category_id/update', category_controller.category_update_get);
 
-// POST request to update Category.
-router.post('/category/:category_id/update', category_controller.category_update_post);
+// // POST request to update Category.
+ router.post('/category/:category_id/update', category_controller.category_update_post);
 
-// GET request for one Category.
-router.get('/category/:category_id', category_controller.category_detail);
+// // GET request for one Category.
+ router.get('/category/:category_id', category_controller.category_detail);
 
-// GET request for list of all Categories.
-router.get('/categories', category_controller.category_list);
+// // GET request for list of all Categories.
+ router.get('/categories', category_controller.category_list);
 
 
 /// COMMENT ROUTES ///
@@ -119,26 +119,26 @@ router.get('/categories', category_controller.category_list);
 // GET request for creating Comment. NOTE This must come before route for id (i.e. display comment).
 router.get('/comment/create', comment_controller.comment_create_get);
 
-// POST request for creating Comment.
-router.post('/comment/create', comment_controller.comment_create_post);
+// // POST request for creating Comment.
+ router.post('/comment/create', comment_controller.comment_create_post);
 
-// GET request to delete Comment.
-router.get('/comment/:comment_id/delete', comment_controller.comment_delete_get);
+// // GET request to delete Comment.
+ router.get('/comment/:comment_id/delete', comment_controller.comment_delete_get);
 
-// POST request to delete Comment
-router.post('/comment/:comment_id/delete', comment_controller.comment_delete_post);
+// // POST request to delete Comment
+// router.post('/comment/:comment_id/delete', comment_controller.comment_delete_post);
 
-// GET request to update Comment.
+// // GET request to update Comment.
 router.get('/comment/:comment_id/update', comment_controller.comment_update_get);
 
-// POST request to update Comment.
+// // POST request to update Comment.
 router.post('/comment/:comment_id/update', comment_controller.comment_update_post);
 
-// GET request for one Comment.
-router.get('/comment/:comment_id', comment_controller.comment_detail);
+// // GET request for one Comment.
+ router.get('/comment/:comment_id', comment_controller.comment_detail);
 
-// GET request for list of all Comments.
-router.get('/comments', comment_controller.comment_list);
+// // GET request for list of all Comments.
+ router.get('/comments', comment_controller.comment_list);
 
 // GET blog home page.
 router.get('/', post_controller.index); 

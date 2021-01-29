@@ -1,70 +1,121 @@
-var Comment = require('../models/category');
+var Comment = require('../models/comment');
+var models = require('../models');
 
-// Display comment create form on GET.
+// Display author create form on GET.
 exports.comment_create_get = function(req, res, next) {
-        // create comment GET controller logic here 
-        
-        // renders a comment form
-        res.render('forms/comment_form', { title: 'Create Comment', layout: 'layouts/detail'});
+        // create author GET controller logic here 
+        res.render('forms/comment_form', { title: 'Create Comment',  layout: 'layouts/detail'});
+        console.log(232);
 };
 
-// Handle comment create on POST.
+// Handle user create on POST.
 exports.comment_create_post = function(req, res, next) {
-     // create comment POST controller logic here
      
-     // If a comment gets created successfully, we just redirect to comments list
-     // no need to render a page
-     res.redirect("/comments");
+      models.Comment.create({
+            comment_title: req.body.comment_title,
+            comment_body: req.body.comment_body
+        }).then(function() {
+            console.log("Comment created successfully");
+           // check if there was an error during post creation
+            res.redirect('/blog/comments'); 
+      });
+     
 };
 
-// Display comment delete form on GET.
+// Display user delete form on GET.
+exports.user_delete_get = function(req, res, next) {
+        // GET logic to delete an user here
+        models.User.destroy({
+            // find the user_id to delete from database
+            where: {
+              id: req.params.user_id
+            }
+          }).then(function() {
+           // If a user gets deleted successfully, we just redirect to users list
+           // no need to render a page
+            //res.redirect('/blog/users');
+            console.log("User deleted successfully");
+          });
+        // renders user delete page
+        res.render('pages/user_delete', { title: 'Delete User',  layout: 'layouts/detail'} );
+};
+
+// Handle user delete on POST.
 exports.comment_delete_get = function(req, res, next) {
-        // GET logic to delete a comment here
         
-        // renders delete page
-        res.render('pages/comment_delete', { title: 'Delete Comment', layout: 'layouts/detail'} );
+        models.Comment.destroy({
+            // find the user_id to delete from database
+            where: {
+              id: req.params.comment_id
+            }
+          }).then(function() {
+          
+            res.redirect('/blog/comments');
+            console.log("Comments deleted successfully");
+          });
+        
 };
 
-// Handle comment delete on POST.
-exports.comment_delete_post = function(req, res, next) {
-        // POST logic to delete a comment here
-        
-        // If a comment gets deleted successfully, we just redirect to comments list
-        // no need to render a page
-        res.redirect('/comments');
-};
-
-// Display comment update form on GET.
+// Display user update form on GET.
 exports.comment_update_get = function(req, res, next) {
-        // GET logic to update a comment here
-        
-        // renders a comment form
-        res.render('forms/comment_form', { title: 'Update Comment',  layout: 'layouts/detail' });
+        console.log("ID is " + req.params.comment_id);
+        models.Comment.findById(
+                req.params.comment_id
+        ).then(function(comment) {
+               // renders a post form
+               res.render('forms/comment_form', { title: 'Update Comment', comment: comment, layout: 'layouts/detail'});
+               console.log("Comment update get successful");
+          });
 };
 
-// Handle comment update on POST.
+// Handle post update on POST.
 exports.comment_update_post = function(req, res, next) {
-        // POST logic to update a comment here
-       
-        // If a comment gets updated successfully, we just redirect to comments list
-        // no need to render a page
-        res.redirect("/comments");
+        // POST logic to update an user here
+        console.log("ID is " + req.params.comment_id);
+        models.Comment.update(
+        // Values to update
+            {
+                comment_title: req.body.comment_title,
+                comment_body: req.body.comment_body
+            },
+          { // Clause
+                where: 
+                {
+                    id: req.params.comment_id
+                }
+            }
+        //   returning: true, where: {id: req.params.post_id} 
+         ).then(function() { 
+        
+                res.redirect("/blog/comments");  
+                console.log("Comment updated successfully");
+          });
 };
 
-// Display list of all comments.
+// Display list of all users.
 exports.comment_list = function(req, res, next) {
-        // controller logic to display all comments
-        
-        // renders a comment list page
-        res.render('pages/comment_list', { title: 'Comment List',  layout: 'layouts/list'} );
+        // GET controller logic to list all users
+        models.Comment.findAll(
+        ).then(function(comments) {
+        // renders a post list page
+        console.log("rendering comment list");
+        res.render('pages/comment_list', { title: 'Comment List', comments: comments, layout: 'layouts/list'} );
+        console.log("Comment list renders successfully");
+        });
 };
 
-// Display detail page for a specific comment.
+// Display detail page for a specific user.
 exports.comment_detail = function(req, res, next) {
-        // constroller logic to display a single comment
+         console.log(req.params.comment_id);
+        models.Comment.findById(
+                req.params.comment_id
+        ).then(function(comment) {
+        // renders an inividual post details page
         
-        // renders an inividual comment details page
-        res.render('pages/comment_detail', { title: 'Comment Details',  layout: 'layouts/detail'} );
+        res.render('pages/comment_detail', { title: 'Comment Details', comment: comment, layout: 'layouts/detail'} );
+        console.log(comment.name);
+        //console.log("User details renders successfully");
+        });
 };
 
  
