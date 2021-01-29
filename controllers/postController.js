@@ -58,7 +58,7 @@ exports.post_delete_post = function(req, res, next) {
 exports.post_update_get = function(req, res, next) {
         // Find the post you want to update
         console.log("ID is " + req.params.post_id);
-        models.Post.findById(
+        models.Post.findByPk(
                 req.params.post_id
         ).then(function(post) {
                // renders a post form
@@ -95,7 +95,7 @@ exports.post_update_post = function(req, res, next) {
 // Display detail page for a specific post.
 exports.post_detail = function(req, res, next) {
         // find a post by the primary key Pk
-        models.Post.findById(
+        models.Post.findByPk(
                 req.params.post_id
         ).then(function(post) {
         // renders an inividual post details page

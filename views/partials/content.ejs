@@ -64,7 +64,68 @@
         </ol>
     </div>
     </div>
-<% } else { %>
+<% } else if (title == 'Create User') { %>
+     <div class="col-sm-8">    
+        <div class="jumbotron">
+            <form action="" method="post">
+              Username:<br>
+              <input type="text" name="username" placeholder="User name">
+              <br>
+              Email:<br>
+              <input type="email" name="email" placeholder="Email">
+              <br>
+              password:<br>
+              <input type="password" name="password" placeholder="password">
+              <br><br>
+              <input type="submit" value="Submit">
+            </form>
+        </div>
+    </div>
+<% }else if (title == 'User List') { %>
+     <div class="col-sm-8">    
+        <div class="">
+            <ol>
+            <% users.forEach(function(user) { %>
+                    <li>
+                        <h4><a href="/blog/user/<%= user.id %>"><%= user.username %></a></h4>
+                        
+                         <a href="/blog/user/<%= user.id %>/update">Edit  User</a> | <a href="/blog/user/<%= user.id %>/delete">Delete User</a>
+                    </li>
+                <br/>
+            <% }); %>
+            </ol>
+        </div>
+    </div>
+<% }else if (title == 'User Details') { %>
+    <div class="col-sm-8">    
+        <div class="">
+             <h1>Details of a Single User</h1>
+             <p>I am a user  with ID - <%= user.id %></p>
+             <p>Email: <%= user.email %></p>
+             <a href="/blog/user/<%= user.id %>/update">Edit  Details</a> | <a href="/blog/user/<%= user.id %>/delete">Delete User</a>
+        </div>
+    </div>
+<% }else if (title == 'Delete User') { %>
+     
+<% }else if (title == 'Update User') { %>
+     <div class="col-sm-8">    
+        <div class="jumbotron">
+            <form action="" method="post">
+              <h6>Update User</h6>
+              Username:<br>
+              <input type="text" name="username" value= <%= user.username %>>
+              <br>
+              Email:<br>
+              <input type="email" name="email" value= <%= user.email %>>
+              <br>
+              password:<br>
+              <input type="password" name="password" value= <%= user.password %>>
+              <br><br>
+              <input type="submit" value="Submit">
+            </form>
+        </div>
+    </div>
+<% }else { %>
     <div class="col-sm-8">    
         <div class="jumbotron">
             <h1><%= title %></h1>
@@ -73,6 +134,23 @@
     </div>
 <% } %>
 <!--POST VIEW END HERE-->
+
+<!--USER VIEW STARTS HERE -->
+<!--complete logic for author view-->
+<% if (title == 'Create User') { %>
+ 
+<% } else if (title == 'Delete Author') { %>
+     
+<% } else if (title == 'Update Author') { %>
+   
+<% } else if (title == 'Author Details') { %>
+ 
+<% } else if (title == 'Author List') { %>
+  
+<% } else { %>
+  
+<% } %>
+<!--AUTHOR VIEW END HERE-->
 
 <!--AUTHOR VIEW STARTS HERE -->
 <!--complete logic for author view-->
