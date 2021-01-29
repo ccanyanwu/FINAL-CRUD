@@ -44,22 +44,20 @@ router.get('/author/create', author_controller.author_create_get);
 // POST request for creating Author.
 router.post('/author/create', author_controller.author_create_post);
 
-// GET request to delete Author.
-router.get('/author/:author_id/delete', author_controller.author_delete_get);
+// // GET request to delete Author.
+ router.get('/author/:author_id/delete', author_controller.author_delete_get);
 
-// POST request to delete Author
-router.post('/author/:author_id/delete', author_controller.author_delete_post);
 
-// GET request to update Author.
-router.get('/author/:author_id/update', author_controller.author_update_get);
+// // GET request to update Author.
+ router.get('/author/:author_id/update', author_controller.author_update_get);
 
-// POST request to update Author.
-router.post('/author/:author_id/update', author_controller.author_update_post);
+// // POST request to update Author.
+ router.post('/author/:author_id/update', author_controller.author_update_post);
 
-// GET request for one Author.
-router.get('/author/:author_id', author_controller.author_detail);
+ // GET request for one Author.
+ router.get('/author/:author_id', author_controller.author_detail);
 
-// GET request for list of all Authors.
+ // GET request for list of all Authors.
 router.get('/authors', author_controller.author_list);
 
 /// USER ROUTES ///
