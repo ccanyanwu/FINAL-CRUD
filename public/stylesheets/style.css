@@ -1,6 +1,6 @@
 .bg-3 { 
-      background-color: #ffffff;
-      color: #555555;
+      background-color: #333;
+      color: #f2f2f2;
   }
   .container-fluid {
       padding-top: 70px;
@@ -21,3 +21,4 @@
 .active>a {
     color: #1abc9c !important;;
   }
+  
