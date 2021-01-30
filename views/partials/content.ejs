@@ -69,15 +69,15 @@
         <div class="jumbotron">
             <form action="" method="post">
               Username:<br>
-              <input type="text" name="username" placeholder="User name">
+              <input class="form-control" style="margin:1rem 0" type="text" name="username" placeholder="User name">
               <br>
               Email:<br>
-              <input type="email" name="email" placeholder="Email">
+              <input class="form-control" style="margin:1rem 0" type="email" name="email" placeholder="Email">
               <br>
               password:<br>
-              <input type="password" name="password" placeholder="password">
+              <input class="form-control" style="margin:1rem 0" type="password" name="password" placeholder="password">
               <br><br>
-              <input type="submit" value="Submit">
+              <input class="btn btn-info" type="submit" value="Submit">
             </form>
         </div>
     </div>
@@ -90,7 +90,7 @@
                     <li>
                         <h4><a href="/blog/user/<%= user.id %>"><%= user.username %></a></h4>
                         
-                         <a href="/blog/user/<%= user.id %>/update">Edit  User</a> | <a href="/blog/user/<%= user.id %>/delete">Delete User</a>
+                         <a class="btn btn-success" href="/blog/user/<%= user.id %>/update">Edit  User</a> | <a class="btn btn-danger" href="/blog/user/<%= user.id %>/delete">Delete User</a>
                     </li>
                 <br/>
             <% }); %>
@@ -103,7 +103,7 @@
              <h1>Details of a Single User</h1>
              <p>I am a user  with ID - <%= user.id %></p>
              <p>Email: <%= user.email %></p>
-             <a href="/blog/user/<%= user.id %>/update">Edit  Details</a> | <a href="/blog/user/<%= user.id %>/delete">Delete User</a>
+             <a class="btn btn-success" href="/blog/user/<%= user.id %>/update">Edit  Details</a> | <a class="btn btn-danger" href="/blog/user/<%= user.id %>/delete">Delete User</a>
         </div>
     </div>
 <% }else if (title == 'Delete User') { %>
@@ -112,17 +112,17 @@
      <div class="col-sm-8">    
         <div class="jumbotron">
             <form action="" method="post">
-              <h6>Update User</h6>
+              <h2>Update User</h2>
               Username:<br>
-              <input type="text" name="username" value= <%= user.username %>>
+              <input class="form-control" style="margin:1rem 0" type="text" name="username" value= <%= user.username %>>
               <br>
               Email:<br>
-              <input type="email" name="email" value= <%= user.email %>>
+              <input class="form-control" style="margin:1rem 0" type="email" name="email" value= <%= user.email %>>
               <br>
               password:<br>
-              <input type="password" name="password" value= <%= user.password %>>
+              <input class="form-control" style="margin:1rem 0" type="password" name="password" value= <%= user.password %>>
               <br><br>
-              <input type="submit" value="Submit">
+              <input class="btn btn-info" type="submit" value="Submit">
             </form>
         </div>
     </div>
@@ -131,12 +131,12 @@
         <div class="jumbotron">
             <form action="" method="post">
               Name:<br>
-              <input type="text" name="name" placeholder="name">
+              <input class="form-control" style="margin:1rem 0" type="text" name="name" placeholder="name">
               <br>
               Dsecription:<br>
-              <input type="text" name="description" placeholder="description">
+              <input class="form-control" style="margin:1rem 0" type="text" name="description" placeholder="description">
               <br><br>
-              <input type="submit" value="Submit">
+              <input class="btn btn-info" type="submit" value="Submit">
             </form>
         </div>
     </div>
@@ -149,7 +149,7 @@
                     <li>
                         <h4><a href="/blog/category/<%= category.id %>"><%= category.name %></a></h4>
                         
-                         <a href="/blog/category/<%= category.id %>/update">Edit  Category</a> | <a href="/blog/category/<%= category.id %>/delete">Delete Category</a>
+                         <a class="btn btn-success" href="/blog/category/<%= category.id %>/update">Edit  Category</a> | <a class="btn btn-danger" href="/blog/category/<%= category.id %>/delete">Delete Category</a>
                     </li>
                 <br/>
             <% }); %>
@@ -163,21 +163,21 @@
              <p>Category ID - <%= category.id %></p>
              <p>Category Name:<%= category.name %></p>
              <p>Description:<%= category.description %></p>
-             <a href="/blog/category/<%= category.id %>/update">Edit  Category</a> | <a href="/blog/category/<%= category.id %>/delete">Delete Category</a>
+             <a class="btn btn-success" href="/blog/category/<%= category.id %>/update">Edit  Category</a> | <a class="btn btn-danger" href="/blog/category/<%= category.id %>/delete">Delete Category</a>
         </div>
     </div>
 <% }else if (title == 'Update Category') { %>
      <div class="col-sm-8">    
         <div class="jumbotron">
-            <h6>Update This Category</h6>
+            <h2>Update This Category</h2>
             <form action="" method="post">
               Name:<br>
-              <input type="text" name="name" value= <%= category.name %>>
+              <input class="form-control" style="margin:1rem 0" type="text" name="name" value= <%= category.name %>>
               <br>
               Dsecription:<br>
-              <input type="text" name="description" value= <%= category.description %>>
+              <input class="form-control" style="margin:1rem 0" type="text" name="description" value= <%= category.description %>>
               <br><br>
-              <input type="submit" value="Submit">
+              <input class="btn btn-info" type="submit" value="Submit">
             </form>
         </div>
     </div>
@@ -186,12 +186,12 @@
         <div class="jumbotron">
             <form action="" method="post">
               Comment Title:<br>
-              <input type="text" name="comment_title" placeholder="comment title">
+              <input class="form-control" style="margin:1rem 0" type="text" name="comment_title" placeholder="comment title">
               <br>
               Comment Body:<br>
-              <input type="text" name="comment_body" placeholder="comment body">
+              <input class="form-control" style="margin:1rem 0" type="text" name="comment_body" placeholder="comment body">
               <br><br>
-              <input type="submit" value="Submit">
+              <input class="btn btn-info" type="submit" value="Submit">
             </form>
         </div>
     </div>
@@ -204,7 +204,7 @@
                     <li>
                         <h4><a href="/blog/comment/<%= comment.id %>"><%= comment.comment_body %></a></h4>
                         
-                         <a href="/blog/comment/<%= comment.id %>/update">Edit  Comment</a> | <a href="/blog/comment/<%= comment.id %>/delete">Delete Comment</a>
+                         <a class="btn btn-success" href="/blog/comment/<%= comment.id %>/update">Edit  Comment</a> | <a class="btn btn-danger" href="/blog/comment/<%= comment.id %>/delete">Delete Comment</a>
                     </li>
                 <br/>
             <% }); %>
@@ -218,21 +218,21 @@
              <p>Comment ID - <%= comment.id %></p>
              <p>Comment Title:<%= comment.comment_title %></p>
              <p>Comment Body:<%= comment.comment_body %></p>
-             <a href="/blog/comment/<%= comment.id %>/update">Edit  Comment</a> | <a href="/blog/comment/<%= comment.id %>/delete">Delete Comment</a>
+             <a class="btn btn-success" href="/blog/comment/<%= comment.id %>/update">Edit </a> | <a class="btn btn-danger" href="/blog/comment/<%= comment.id %>/delete">Delete </a>
         </div>
     </div>
 <% }else if (title == 'Update Comment') { %>
      <div class="col-sm-8">    
         <div class="jumbotron">
             <form action="" method="post">
-                <h6>Update Comment</h6>
+                <h2>Update Comment</h2>
               Comment Title:<br>
-              <input type="text" name="comment_title" value= <%= comment.comment_title %>>
+              <input class="form-control" style="margin:1rem 0" type="text" name="comment_title" value= <%= comment.comment_title %>>
               <br>
               Comment Body:<br>
-              <input type="text" name="comment_body" value= <%= comment.comment_body %>>
+              <input class="form-control" style="margin:1rem 0" type="text" name="comment_body" value= <%= comment.comment_body %>>
               <br><br>
-              <input type="submit" value="Submit">
+              <input class="btn btn-info" type="submit" value="Submit">
             </form>
         </div>
     </div>
@@ -241,50 +241,22 @@
         <div class="jumbotron">
             <form action="" method="post">
               Firstname:<br>
-              <input type="text" name="first_name" placeholder="First name">
+              <input class="form-control" style="margin:1rem 0" type="text" name="first_name" placeholder="First name">
               <br>
               Lastname:<br>
-              <input type="text" name="last_name" placeholder="Last name">
+              <input class="form-control" style="margin:1rem 0" type="text" name="last_name" placeholder="Last name">
               <br>
               Username:<br>
-              <input type="text" name="username" placeholder="Username">
+              <input class="form-control" style="margin:1rem 0" type="text" name="username" placeholder="Username">
               <br>
               Role:<br>
-              <input type="text" name="role" placeholder="Role">
+              <input class="form-control" style="margin:1rem 0" type="text" name="role" placeholder="Role">
               <br>
               Email:<br>
-              <input type="email" name="email" placeholder="Email">
+              <input class="form-control" style="margin:1rem 0" type="email" name="email" placeholder="Email">
               <br><br>
-              <input type="submit" value="Submit">
+              <input class="btn btn-info" type="submit" value="Submit">
             </form>
-            <!--form action="" method="post">
-              <div class="form-group">
-                <label for="First Name">First Name</label>
-                <input type="text" name="first_name" class="form-control" placeholder="Enter first name">
-                <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-              </div>
-              <div class="form-group">
-                <label for="Last name">Last Name</label>
-                <input type="text" name="last_name" class="form-control"  placeholder="Enter last name">
-              </div>
-               <div class="form-group">
-                <label for="username">Username</label>
-                <input type="text" name="username" class="form-control"  placeholder="Enter username">
-               </div>
-               <div class="form-group">
-                <label for="role">Role</label>
-                <input type="text" name="role" class="form-control"  placeholder="Enter you role">
-               </div>
-               <div class="form-group">
-                <label for="email">Email</label>
-                <input type="text" name="email" class="form-control"  placeholder="Enter email">
-               </div>
-              <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                <label class="form-check-label" for="exampleCheck1">Check me out</label>
-              </div>
-              <button type="submit" class="btn btn-primary">Submit</button>
-            </form-->
         </div>
     </div>
 <% }else if (title == 'Author List') { %>
@@ -296,7 +268,7 @@
                     <li>
                         <h4><a href="/blog/author/<%= author.id %>"><%= author.username %></a></h4>
                         
-                         <a href="/blog/author/<%= author.id %>/update">Edit  Author</a> | <a href="/blog/author/<%= author.id %>/delete">Delete Author</a>
+                         <a class="btn btn-success" href="/blog/author/<%= author.id %>/update">Edit</a> | <a class="btn btn-danger" href="/blog/author/<%= author.id %>/delete">Delete </a>
                     </li>
                 <br/>
             <% }); %>
@@ -313,7 +285,7 @@
              <p>Username: <%= author.username %></p>
              <p>Role: <%= author.role %></p>
              <p>Email: <%= author.email %></p>
-             <a href="/blog/author/<%= author.id %>/update">Edit Author Details</a> | <a href="/blog/author/<%= author.id %>/delete">Delete Author</a>
+             <a class="btn btn-success" href="/blog/author/<%= author.id %>/update">Edit </a> | <a class="btn btn-danger" href="/blog/author/<%= author.id %>/delete">Delete </a>
         </div>
     </div>
 <% }else if (title == 'Delete User') { %>
@@ -322,17 +294,17 @@
      <div class="col-sm-8">    
         <div class="jumbotron">
             <form action="" method="post">
-              <h6>Update Author</h6>
+              <h2 >Update Author</h2>
               Username:<br>
-              <input type="text" name="username" value= <%= author.username %>>
+              <input class="form-control" style="margin:1rem 0" type="text" name="username" value= <%= author.username %>>
               <br>
               Email:<br>
-              <input type="email" name="email" value= <%= author.email %>>
+              <input class="form-control" style="margin:1rem 0" type="email" name="email" value= <%= author.email %>>
               <br>
               Role:<br>
-              <input type="text" name="role" value= <%= author.role %>>
+              <input class="form-control" style="margin:1rem 0" type="text" name="role" value= <%= author.role %>>
               <br><br>
-              <input type="submit" value="Submit">
+              <input class="btn btn-info" type="submit" value="Submit">
             </form>
         </div>
     </div>
