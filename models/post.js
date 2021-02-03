@@ -6,5 +6,3 @@ module.exports = (sequelize, DataTypes) => {
   });
   return Post;
 };
-
-// Make sure you complete other models fields
