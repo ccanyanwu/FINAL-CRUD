@@ -7,9 +7,9 @@ exports.index = function(req, res) {
       // find the count of posts in database
       models.Post.findAndCountAll(
       ).then(function(postCount) {
-          models.Author.findAndCountAll(
-      ).then(function(authorCount) {
-        res.render('pages/index', {title: 'Homepage', postCount: postCount, authorCount: authorCount, layout: 'layouts/main'});
+          models.Employee.findAndCountAll(
+      ).then(function(employeeCount) {
+        res.render('pages/index', {title: 'Homepage', postCount: postCount, employeeCount: employeeCount, layout: 'layouts/main'});
       });
       });
       
