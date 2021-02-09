@@ -14,8 +14,10 @@ exports.post_create_post = function(req, res, next) {
      // create a new post based on the fields in our post model
      // I have create two fields, but it can be more for your model
       models.Post.create({
+            post_id: req.body.post_id,
             post_title: req.body.post_title,
-            post_body: req.body.post_body
+            post_body: req.body.post_body,
+            author_id: req.body.author_id
         }).then(function() {
             console.log("Post created successfully");
            // check if there was an error during post creation
@@ -23,7 +25,7 @@ exports.post_create_post = function(req, res, next) {
       });
 };
 
-// Display post delete form on GET.
+/*/ Display post delete form on GET.
 exports.post_delete_get = function(req, res, next) {
        models.Post.destroy({
             // find the post_id to delete from database
@@ -36,14 +38,14 @@ exports.post_delete_get = function(req, res, next) {
             res.redirect('/blog/posts');
             console.log("Post deleted successfully");
           });
-};
+};*/
 
 // Handle post delete on POST.
-exports.post_delete_post = function(req, res, next) {
+exports.post_delete_get = function(req, res, next) {
           models.Post.destroy({
             // find the post_id to delete from database
             where: {
-              id: req.params.post_id
+              post_id: req.params.post_id
             }
           }).then(function() {
            // If an post gets deleted successfully, we just redirect to posts list
@@ -58,7 +60,7 @@ exports.post_delete_post = function(req, res, next) {
 exports.post_update_get = function(req, res, next) {
         // Find the post you want to update
         console.log("ID is " + req.params.post_id);
-        models.Post.findByPk(
+        models.Post.findById(
                 req.params.post_id
         ).then(function(post) {
                // renders a post form
@@ -80,7 +82,7 @@ exports.post_update_post = function(req, res, next) {
           { // Clause
                 where: 
                 {
-                    id: req.params.post_id
+                    post_id: req.params.post_id
                 }
             }
         //   returning: true, where: {id: req.params.post_id} 
@@ -95,7 +97,7 @@ exports.post_update_post = function(req, res, next) {
 // Display detail page for a specific post.
 exports.post_detail = function(req, res, next) {
         // find a post by the primary key Pk
-        models.Post.findByPk(
+        models.Post.findById(
                 req.params.post_id
         ).then(function(post) {
         // renders an inividual post details page
@@ -118,7 +120,19 @@ exports.post_list = function(req, res, next) {
         
 };
 
-// This is the blog homepage.
+exports.index = function(req, res, next) {
+  // controller logic to display all posts
+  models.Post.findAll(
+  ).then(function(posts) {
+  // renders a post list page
+  console.log("rendering post list");
+  res.render('pages/post_list', { title: 'Post List', posts: posts, layout: 'layouts/list'} );
+  console.log("Posts list renders successfully");
+  });
+  
+};
+
+/*/ This is the blog homepage.
 exports.index = function(req, res) {
 
       // find the count of posts in database
@@ -140,7 +154,7 @@ exports.index = function(req, res) {
  
         // find the count of categories in database
  
-        res.render('pages/index', {title: 'Homepage', postCount: postCount, authorCount: authorCount, userCount:userCount, categoryCount:categoryCount, commentCount:commentCount ,layout: 'layouts/main'});
+        res.render('pages/post_list', {title: 'Homepage', postCount: postCount, authorCount: authorCount, userCount:userCount, categoryCount:categoryCount, commentCount:commentCount ,layout: 'layouts/main'});
         
         // res.render('pages/index_list_sample', { title: 'Post Details', layout: 'layouts/list'});
         // res.render('pages/index_detail_sample', { page: 'Home' , title: 'Post Details', layout: 'layouts/detail'});
@@ -150,7 +164,7 @@ exports.index = function(req, res) {
       });
       });
     
-    };
+    };*/
 
 
  

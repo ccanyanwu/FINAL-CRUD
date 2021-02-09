@@ -5,7 +5,7 @@ var models = require('../models');
 exports.author_create_get = function(req, res, next) {
         // create author GET controller logic here 
         res.render('forms/author_form', { title: 'Create Author',  layout: 'layouts/detail'});
-        console.log(232);
+        console.log('done');
 };
 
 // Handle authorr create on POST.
@@ -16,18 +16,17 @@ exports.author_create_post = function(req, res, next) {
             first_name: req.body.first_name,
             last_name: req.body.last_name,
             username: req.body.username,
-            role: req.body.role,
-            email: req.body.email
+            email: req.body.email,
+            password: req.body.password,
+            mobile: req.body.mobile
         }).then(function() {
             console.log("Author created successfully");
            // check if there was an error during post creation
-            res.redirect('/blog/authors');  //COME BACK HERE LATER
+            res.redirect('/blog/authors'); 
       });
-     //res.redirect("/users");
-     //res.redirect("/blog/users");
 };
 
-// Display user delete form on GET.
+// Display author delete form on GET.
 exports.user_delete_get = function(req, res, next) {
         // GET logic to delete an user here
         models.User.destroy({
@@ -45,16 +44,16 @@ exports.user_delete_get = function(req, res, next) {
         res.render('pages/user_delete', { title: 'Delete User',  layout: 'layouts/detail'} );
 };
 
-// Handle user delete on POST.
+// Handle author delete on POST.
 exports.author_delete_get = function(req, res, next) {
         
         models.Author.destroy({
-            // find the user_id to delete from database
+            // find the author_id to delete from database
             where: {
-              id: req.params.author_id
+              author_id: req.params.author_id
             }
           }).then(function() {
-           // If a user gets deleted successfully, we just redirect to users list
+           // If a author gets deleted successfully, we just redirect to users list
            // no need to render a page
             res.redirect('/blog/authors');
             console.log("Author deleted successfully");
@@ -83,12 +82,12 @@ exports.author_update_post = function(req, res, next) {
             {
                 username: req.body.username,
                 email: req.body.email,
-                role: req.body.role
+                mobile: req.body.mobile
             },
           { // Clause
                 where: 
                 {
-                    id: req.params.author_id
+                    author_id: req.params.author_id
                 }
             }
         //   returning: true, where: {id: req.params.post_id} 
@@ -102,7 +101,7 @@ exports.author_update_post = function(req, res, next) {
 
 // Display list of all authors.
 exports.author_list = function(req, res, next) {
-        // GET controller logic to list all users
+        // GET controller logic to list all authors
         models.Author.findAll(
         ).then(function(authors) {
         // renders a post list page
@@ -120,7 +119,7 @@ exports.author_detail = function(req, res, next) {
         models.Author.findById(
                 req.params.author_id
         ).then(function(author) {
-        // renders an inividual post details page
+        // renders an inividual author details page
         
         res.render('pages/author_detail', { title: 'Author Details', author: author, layout: 'layouts/detail'} );
         console.log(author.first_name);

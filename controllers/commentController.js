@@ -12,8 +12,8 @@ exports.comment_create_get = function(req, res, next) {
 exports.comment_create_post = function(req, res, next) {
      
       models.Comment.create({
-            comment_title: req.body.comment_title,
-            comment_body: req.body.comment_body
+            comment_body: req.body.comment_body,
+            post_id: req.body.post_id
         }).then(function() {
             console.log("Comment created successfully");
            // check if there was an error during post creation
@@ -46,7 +46,7 @@ exports.comment_delete_get = function(req, res, next) {
         models.Comment.destroy({
             // find the user_id to delete from database
             where: {
-              id: req.params.comment_id
+              comment_id: req.params.comment_id
             }
           }).then(function() {
           
@@ -75,13 +75,12 @@ exports.comment_update_post = function(req, res, next) {
         models.Comment.update(
         // Values to update
             {
-                comment_title: req.body.comment_title,
                 comment_body: req.body.comment_body
             },
           { // Clause
                 where: 
                 {
-                    id: req.params.comment_id
+                    comment_id: req.params.comment_id
                 }
             }
         //   returning: true, where: {id: req.params.post_id} 

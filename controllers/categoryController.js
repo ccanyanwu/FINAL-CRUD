@@ -5,15 +5,15 @@ var models = require('../models');
 exports.category_create_get = function(req, res, next) {
         // create author GET controller logic here 
         res.render('forms/category_form', { title: 'Create Category',  layout: 'layouts/detail'});
-        console.log(232);
+        
 };
 
 // Handle user create on POST.
 exports.category_create_post = function(req, res, next) {
      
       models.Category.create({
-            name: req.body.name,
-            description: req.body.description
+            category_name: req.body.category_name,
+            category_summary: req.body.category_summary
         }).then(function() {
             console.log("Category created successfully");
            // check if there was an error during post creation
@@ -46,7 +46,7 @@ exports.category_delete_get = function(req, res, next) {
         models.Category.destroy({
             // find the user_id to delete from database
             where: {
-              id: req.params.category_id
+              category_id: req.params.category_id
             }
           }).then(function() {
           
@@ -75,13 +75,13 @@ exports.category_update_post = function(req, res, next) {
         models.Category.update(
         // Values to update
             {
-                name: req.body.name,
-                description: req.body.description
+                category_name: req.body.category_name,
+                category_summary: req.body.category_summary
             },
           { // Clause
                 where: 
                 {
-                    id: req.params.category_id
+                    category_id: req.params.category_id
                 }
             }
         //   returning: true, where: {id: req.params.post_id} 
@@ -113,7 +113,7 @@ exports.category_detail = function(req, res, next) {
         // renders an inividual post details page
         
         res.render('pages/category_detail', { title: 'Category Details', category: category, layout: 'layouts/detail'} );
-        console.log(category.name);
+        console.log(category.category_summary);
         //console.log("User details renders successfully");
         });
 };
