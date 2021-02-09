@@ -52,7 +52,7 @@ module.exports = {
     // dialect: 'postgres' 
     username: "qhmaiihh",
     password: "XFvK2KGbm99qAJsFYMdpLVm50rmUBCKe",
-    database: "Sqhmaiihh",
+    database: "qhmaiihh",
     host: "ziggy.db.elephantsql.com",
     dialect: 'postgres' 
   }
