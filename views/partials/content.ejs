@@ -2,174 +2,257 @@
 
 <!--POST VIEW STARTS HERE -->
 <% if (title == 'Create Post') { %>
-    <div class="col-sm-8">    
-        <div class="jumbotron">
+    <div class="col-sm-12">    
+        <div class="jumbotron glassmorphism">
+            <h2 class="display-4 text-center" style="margin:3rem">Make a new Post</h2>
             <form action="" method="post">
               Post Title:<br>
-              <input type="text" name="post_title" placeholder="Post Title">
+              <input class="form-control" style="margin:1rem 0" type="text" name="post_title" placeholder="Post Title">
               <br>
               Post Body:<br>
-              <input type="text" name="post_body" placeholder="Post Body">
+              <input class="form-control" style="margin:1rem 0" type="text" name="post_body" placeholder="Post Body">
               <br>
-              Author_ID:<br>
-              <input type="text" name="author_id" placeholder="2">
+              Author:<br>
+                <select name = "author_id" class="form-control">
+                    <% authors.forEach(function(author) { %>
+                    <option  value="<%= author.id %>"><%= author.first_name %></option>
+                    <br/>
+                    <% }); %>
+                </select>
+                <br><br>
+                <span class="text-white">Category:</span><br>
+                    <div>
+                        <% categories.forEach(function(category) { %>
+                        <input type="checkbox" class='categoryCheckbox' name="categories" id="<%= category.id %>" value="<%= category.id %>">
+                        <label class="text-white" for="<%= category.category_name %>"><%= category.category_name %></label>
+                        
+                    <br/>
+                        <% }); %>
+                    </div>
               <br><br>
-              <input type="submit" value="Submit">
+              <input class="btn btn-info" type="submit" value="Create Post" onClick="checkCat()">
             </form>
         </div>
     </div>
 <% } else if (title == 'Delete Post') { %>
      
 <% } else if (title == 'Update Post') { %>
-    <div class="col-sm-8">    
-        <div class="jumbotron">
-            <form action="/blog/post/<%= post.post_id %>/update" method="post">
+    <div class="col-sm-12">    
+        <div class="jumbotron glassmorphism">
+            <form action="/blog/post/<%= post.id %>/update" method="post" class="glassmorphism">
               Post Title:<br>
-              <input type="text" name="post_title" value="<%= post.post_title %>">
+              <input class="form-control" style="margin:1rem 0" type="text" name="post_title" value="<%= post.post_title %>">
               <br>
               Post Body:<br>
-              <input type="text" name="post_body" value="<%= post.post_body %>">
+              <input class="form-control" style="margin:1rem 0" type="text" name="post_body" value="<%= post.post_body %>">
               <br><br>
-              <input type="submit" value="Update">
+              <span class="text-white">Category:</span><br>
+                <div>
+                     <% categories.forEach(function(category) { %>
+                    <input  type="checkbox" class='categoryCheckbox' name="categories" id="<%= category.id %>" value="<%= category.id %>">
+                    <label for="<%= category.category_name %>" class="text-white"><%= category.category_name %></label>
+                    
+                    <br/>
+                    <% }); %>
+                </div>
+              <br>
+              <input class=" btn btn-info" type="submit" value="Update Post" onClick="checkCat()">
             </form>
         </div>
     </div>
 <% } else if (title == 'Post Details') { %>
-    <div class="col-sm-8">    
+    <div class="col-sm-12 glassmorphism">    
         <div class="">
-             <h1>Details of a Single post</h1>
-             <p>Post ID : <%= post.post_id %></p>
+             <h1>Post by user - <%= post.Author.username %></h1>
+             <p>Post ID : <%= post.id %></p>
              <p>Post Title: <%= post.post_title %></p>
              <p>Post Body:  <%= post.post_body %></p>
-             <a href="/blog/post/<%= post.post_id %>/update">Edit  Post</a> | <a href="/blog/post/<%= post.post_id %>/delete">Delete Post</a>
+             <p>
+                <b>Posted by Author: </b> <%= post.Author.first_name %> <%= post.Author.last_name %> <br/>
+                <b>Inside Categories:</b> <% post.categories.forEach(function(category) { %>  <a href="/blog/category/<%= category.id %>/"> <%= category.category_name %> </a>  <% }); %>
+             </p>
+             <a class="btn btn-success" href="/blog/post/<%= post.id %>/update">Edit  Post</a> | <a class="btn btn-danger" href="/blog/post/<%= post.id %>/delete">Delete Post</a>
+
+             <% if(post.Comments.length == 0) { %>
+                <h3 class="text-danger">There are no comments for this post yet </h3>
+            <% } else { %>
+                <h2>Comments on this Post</h2>
+                 
+                <div class="list-group">
+                    <% post.Comments.forEach(function(comment) { %>
+                    <a  class="list-group-item list-group-item-action " aria-current="true" >
+                      <div class="d-flex w-100 justify-content-between">
+                        <p ><%= comment.comment_body %></p>
+                        <em>on  <%= moment(comment.createdAt).format('llll') %></em>
+                      </div>
+                      <a href="/blog/comment/<%= comment.id %>/update" class="btn btn-success" style="margin-bottom: 2rem;">Edit  Comment</a> | <a href="/blog/comment/<%= comment.id %>/delete" class="btn btn-danger" style="margin-bottom: 2rem;">Delete Comment</a>
+                    </a>
+                    <% }); %>
+                  </div>   
+             <% } %>   
+            <!--Form to post comment-->
+            <h1 style="margin: 3rem;">Add a comment to this post </h1>
+            <form action="/blog/comment/create" method="post">
+                  Comment Body:<br>
+                  <input class="form-control" style="margin:1rem 0" type="text" name="comment_body" placeholder="your comment....">
+                  <br><br>
+                  <input type="hidden" name="post_id" value="<%= post.id %>">
+                  <input class="btn btn-info" type="submit" value="add comment">
+            </form>
         </div>
     </div>
 <% } else if (title == 'Post List') { %>
-    <div class="col-sm-8">    
+    <div class="col-sm- 12 glassmorphism" style="padding: 10rem;">    
         <div class="">
-        <ol>
+            <h1>All Posts</h1>
+        <ul>
         <% posts.forEach(function(post) { %>
                 <li>
-                    <h4><a href="/blog/post/<%= post.post_id %>"><%= post.post_title %></a></h4>
-                    <p>The main body of the post: <%= post.post_body %></p>
-                     <a href="/blog/post/<%= post.post_id %>/update">Edit  Post</a> | <a href="/blog/post/<%= post.post_id %>/delete">Delete Post</a>
+                    <h4 class="text-uppercase"><a href="/blog/post/<%= post.id %>"><%= post.post_title %></a></h4>
+                    <p class="text-justify"><strong>Post Body:</strong> <%= post.post_body %> <br/>
+                        <b>Posted by Author: </b> <%= post.Author.first_name %> <%= post.Author.last_name %>  <br/> 
+                         <!--Category: DISPLAY CATEGORY HERE -->
+                         <b>Inside Categories: </b> <% post.categories.forEach(function(category) { %>  <a href="/blog/category/<%= category.id %>/"> <%= category.category_name %> </a>  <% }); %>
+                    </p>
+                     <a href="/blog/post/<%= post.id %>/update" class="btn btn-success">Edit  Post</a> | <a href="/blog/post/<%= post.id %>/delete" class="btn btn-danger">Delete Post</a>
                 </li>
             <br/>
         <% }); %>
-        </ol>
+        </ul>
+        <!--router.get('/author/create', author_controller.author_create_get);-->
+        <a href="/blog/post/create" class="btn btn-info" style="margin: 3rem 2rem;">Make a new post</a>
+        </div>
     </div>
-    </div>
+    
 <% } else if (title == 'Create Category') { %>
-     <div class="col-sm-8">    
-        <div class="jumbotron">
-            <form action="" method="post">
+     <div class="col-sm-12 ">    
+        <div class="jumbotron glassmorphism">
+            <form action="" method="post" class="glassmorphism">
               Category Name:<br>
               <input class="form-control" style="margin:1rem 0" type="text" name="category_name" placeholder="Gossip">
               <br>
               Category Summary:<br>
-              <input class="form-control" style="margin:1rem 0" type="text" name="category_summary" placeholder="description">
+              <input class="form-control" style="margin:1rem 0" type="text" name="category_summary" placeholder="describe this category">
               <br><br>
-              <input class="btn btn-info" type="submit" value="Submit">
+              <input class="btn btn-info" type="submit" value="Create Category">
             </form>
         </div>
     </div>
 <% }else if (title == 'Category List') { %>
-     <div class="col-sm-8">    
+     <div class="col-sm-12 glassmorphism">    
         <div class="">
-            <h1>Category List</h1>
-            <ol>
+            <h1>All Categories</h1>
+            <ul>
             <% categories.forEach(function(category) { %>
                     <li>
-                        <h4><a href="/blog/category/<%= category.category_id %>"><%= category.category_name %></a></h4>
+                        <h4><a href="/blog/category/<%= category.id %>"><%= category.category_name %></a></h4>
                         
-                         <a class="btn btn-success" href="/blog/category/<%= category.category_id %>/update">Edit  Category</a> | <a class="btn btn-danger" href="/blog/category/<%= category.category_id %>/delete">Delete Category</a>
+                         <a class="btn btn-success" href="/blog/category/<%= category.id %>/update">Edit  Category</a> | <a class="btn btn-danger" href="/blog/category/<%= category.id %>/delete">Delete Category</a>
                     </li>
                 <br/>
             <% }); %>
-            </ol>
+            </ul>
+            <!--router.get('/author/create', author_controller.author_create_get);-->
+            <a href="/blog/category/create" class="btn btn-info" style="margin: 3rem 2rem;">add a new category</a>
         </div>
     </div>
 <% }else if (title == 'Category Details') { %>
-    <div class="col-sm-8">    
+    <div class="col-sm-12 glassmorphism">    
         <div class="">
-             <h1>Details of one category</h1>
-             <p>Category ID - <%= category.category_id %></p>
-             <p>Category Name:<%= category.category_name %></p>
-             <p>Description:<%= category.category_summary %></p>
-             <a class="btn btn-success" href="/blog/category/<%= category.category_id %>/update">Edit  Category</a> | <a class="btn btn-danger" href="/blog/category/<%= category.category_id %>/delete">Delete Category</a>
+             <h1 class="text-capitalize"><%= category.category_name %> Category</h1>
+             <p><strong>Category ID</strong>:  <%= category.id %></p>
+             <p><strong>Category Name</strong>: <%= category.category_name %></p>
+             <p><strong>Description</strong>: <%= category.category_summary %></p>
+             <a class="btn btn-success" href="/blog/category/<%= category.id %>/update">Edit  Category</a> | <a class="btn btn-danger" href="/blog/category/<%= category.id %>/delete">Delete Category</a>
         </div>
+        <% if(category.posts.length == 0) { %>
+            <h2 class="text-danger">There are no posts under this category yet </h2>
+        <% } else { %>
+            <h3 style="margin: 3rem;">All Posts in this Category</h3>
+            <div class="list-group">
+                <% category.posts.forEach(function(post) { %>
+                <a  class="list-group-item list-group-item-action " aria-current="true" >
+                  <div class="d-flex w-100 justify-content-between">
+                    <p class="text-uppercase"><%= post.post_title %></p>
+                  </div>
+                  <a href="/blog/post/<%= post.id %>/update" class="btn btn-success" style="margin-bottom: 2rem;">Edit  Comment</a> | <a href="/blog/post/<%= post.id %>/delete" class="btn btn-danger" style="margin-bottom: 2rem;">Delete Comment</a>
+                </a>
+                <% }); %>
+              </div>  
+              <!--router.get('/author/create', author_controller.author_create_get);-->
+             <a href="/blog/category/create" class="btn btn-info" style="margin: 3rem 2rem;">add a new category</a> 
+         <% } %>
     </div>
 <% }else if (title == 'Update Category') { %>
-     <div class="col-sm-8">    
-        <div class="jumbotron">
+     <div class="col-sm-12">    
+        <div class="jumbotron glassmorphism">
             <h2>Update This Category</h2>
-            <form action="" method="post">
+            <form action="/blog/category/<%= category.id %>/update" method="post" class="glassmorphism">
               Name:<br>
               <input class="form-control" style="margin:1rem 0" type="text" name="category_name" value= <%= category.category_name %>>
               <br>
               Category Summary:<br>
               <input class="form-control" style="margin:1rem 0" type="text" name="category_summary" value= <%= category.category_summary %>>
               <br><br>
-              <input class="btn btn-info" type="submit" value="Submit">
+              <input class="btn btn-info" type="submit" value="Update Category">
             </form>
         </div>
     </div>
 <% }else if (title == 'Create Comment') { %>
      <div class="col-sm-8">    
         <div class="jumbotron">
-            <form action="" method="post">
+            <!--form action="" method="post">
               Comment Body:<br>
               <input class="form-control" style="margin:1rem 0" type="text" name="comment_body" placeholder="comment body">
               <br>
               Poster ID:<br>
               <input class="form-control" style="margin:1rem 0" type="text" name="post_id" placeholder="1">
               <br><br>
-              <input class="btn btn-info" type="submit" value="Submit">
-            </form>
+              <input class="btn btn-info" type="submit" value="Post Comment">
+            </form-->
         </div>
     </div>
 <% }else if (title == 'Comment List') { %>
-     <div class="col-sm-8">    
+     <div class="col-sm-12 glassmorphism">    
         <div class="">
-            <h1>List Of Comments</h1>
-            <ol>
+            <h1>List Of Different Comments</h1>
+            <ul>
             <% comments.forEach(function(comment) { %>
                     <li>
-                        <h4><a href="/blog/comment/<%= comment.comment_id %>"><%= comment.comment_body %></a></h4>
+                        <h4><a href="/blog/comment/<%= comment.id %>"><%= comment.comment_body %></a></h4>
                         
-                         <a class="btn btn-success" href="/blog/comment/<%= comment.comment_id %>/update">Edit  Comment</a> | <a class="btn btn-danger" href="/blog/comment/<%= comment.comment_id %>/delete">Delete Comment</a>
+                         <a class="btn btn-success" href="/blog/comment/<%= comment.id %>/update">Edit  Comment</a> | <a class="btn btn-danger" href="/blog/comment/<%= comment.id %>/delete">Delete Comment</a>
                     </li>
                 <br/>
             <% }); %>
-            </ol>
+            </ul>
         </div>
     </div>
 <% }else if (title == 'Comment Details') { %>
-    <div class="col-sm-8">    
+    <div class="col-sm-12 glassmorphism">    
         <div class="">
-             <h1>Details of one Comment</h1>
-             <p>Comment ID : <%= comment.comment_id %></p>
+             <h1>Details of this comment</h1>
+             <p>Comment ID : <%= comment.id %></p>
              <p>Comment Body:<%= comment.comment_body %></p>
-             <p>Post ID:<%= comment.post_id %></p>
-             <a class="btn btn-success" href="/blog/comment/<%= comment.comment_id %>/update">Edit </a> | <a class="btn btn-danger" href="/blog/comment/<%= comment.comment_id %>/delete">Delete </a>
+             <a class="btn btn-success" href="/blog/comment/<%= comment.id %>/update">Edit </a> | <a class="btn btn-danger" href="/blog/comment/<%= comment.id %>/delete">Delete </a>
         </div>
     </div>
 <% }else if (title == 'Update Comment') { %>
-     <div class="col-sm-8">    
-        <div class="jumbotron">
-            <form action="" method="post">
+     <div class="col-sm-12">    
+        <div class="jumbotron glassmorphism">
+            <form action="/blog/comment/<%= comment.id %>/update" method="post" class="glassmorphism">
                 <h2>Update Comment</h2>
               Comment Body:<br>
               <input class="form-control" style="margin:1rem 0" type="text" name="comment_body" value= <%= comment.comment_body %>>
               <br><br>
-              <input class="btn btn-info" type="submit" value="Submit">
+              <input class="btn btn-info" type="submit" value="Update Comment">
             </form>
         </div>
     </div>
 <% }else if (title == 'Create Author') { %>
-     <div class="col-sm-8">    
-        <div class="jumbotron">
-            <form action="" method="post">
+     <div class="col-sm-12">    
+        <div class="jumbotron glassmorphism" >
+            <form action="" method="post" >
               Firstname:<br>
               <input class="form-control" style="margin:1rem 0" type="text" name="first_name" placeholder="First name">
               <br>
@@ -188,45 +271,93 @@
               Phone Number:<br>
               <input class="form-control" style="margin:1rem 0" type="number" name="mobile" placeholder="07012345678">
               <br><br>
-              <input class="btn btn-info" type="submit" value="Submit">
+              <input class="btn btn-info" type="submit" value="Create Author">
             </form>
         </div>
     </div>
 <% }else if (title == 'Author List') { %>
-     <div class="col-sm-8">    
+     <div class="col-sm-12 glassmorphism " ">    
         <div class="">
-            <h1>List Of Authors</h1>
-            <ol>
+            <h1>All Authors</h1>
+            <ul>
             <% authors.forEach(function(author) { %>
                     <li>
-                        <h4><a href="/blog/author/<%= author.author_id %>"><%= author.username %></a></h4>
+                        <h4 class="text-uppercase"><a href="/blog/author/<%= author.id %>"><%= author.first_name %></a></h4>
+                        <em><%= author.email %></a></em><br><br>
                         
-                         <a class="btn btn-success" href="/blog/author/<%= author.author_id %>/update">Edit</a> | <a class="btn btn-danger" href="/blog/author/<%= author.author_id %>/delete">Delete </a>
+                         <a class="btn btn-success" href="/blog/author/<%= author.id %>/update">Edit</a> | <a class="btn btn-danger" href="/blog/author/<%= author.id %>/delete">Delete </a>
                     </li>
                 <br/>
             <% }); %>
-            </ol>
+            </ul>
+            <!--router.get('/author/create', author_controller.author_create_get);-->
+            <a href="/blog/author/create" class="btn btn-info" style="margin: 3rem 2rem;">Become an Author</a>
         </div>
     </div>
 <% }else if (title == 'Author Details') { %>
-    <div class="col-sm-8">    
+    <div class="col-sm-12 glassmorphism p-5">    
         <div class="">
-             <h1>Details of a Single Author</h1>
-             <p>Author ID - <%= author.author_id %></p>
+             <h1>Author <%= author.first_name %></h1>
+             <p style="margin-top: 3rem;">ID: <%= author.id %></p>
              <p>Firstname: <%= author.first_name %></p>
              <p>Lastname: <%= author.last_name %></p>
              <p>Username: <%= author.username %></p>
              <p>Email: <%= author.email %></p>
              <p>Phone Number: <%= author.mobile %></p>
-             <a class="btn btn-success" href="/blog/author/<%= author.author_id %>/update">Edit </a> | <a class="btn btn-danger" href="/blog/author/<%= author.author_id %>/delete">Delete </a>
-        </div>
+             <a class="btn btn-success" href="/blog/author/<%= author.id %>/update">Edit </a> | <a class="btn btn-danger" href="/blog/author/<%= author.id %>/delete">Delete </a>
+             <% if(author.Posts.length == 0) { %>
+                <h2 class="text-danger">There are no posts by this author yet </h2>
+            <% } else { %>
+                <h2>Posts You Authored</h2>
+                <div class="">
+                    
+                </div> 
+                
+                <!--my own-->
+                <div class="list-group">
+                    <% author.Posts.forEach(function(post) { %>
+                    <a href="/blog/post/<%= post.id %>" class="list-group-item list-group-item-action " aria-current="true" >
+                      <div class="d-flex w-100 justify-content-between">
+                        <p class="text-uppercase"><%= post.post_title %></p>
+                        <em>posted on <%= moment(post.createdAt).format('llll') %></em>
+                      </div>
+                      <a class="btn btn-success" href="/blog/post/<%= post.id %>/update" style="margin-bottom: 2rem;">Edit  Post</a>  <a  class="btn btn-danger" href="/blog/post/<%= post.id %>/delete" style="margin-bottom: 2rem;">Delete Post</a>
+                    </a>
+                    <% }); %>
+                  </div>
+             <% } %>
+            </div>
+            <h2 style="margin: 10rem 1rem 3rem;">Make a new post using the form below </h2>
+            <form action="/blog/post/create" method="post" style="padding: 3rem;">
+                Post Title:<br>
+                <input class="form-control" style="margin:1rem 0" type="text" name="post_title" placeholder="Post Title">
+                <br><br/>
+                Post Body:<br>
+                <input class="form-control" style="margin:1rem 0" type="text" name="post_body" placeholder="Post Body">
+                <br><br>
+                
+                <input type="hidden" name="author_id" value="<%= author.id %>">
+                <span class="text-white">Category:</span><br>
+                  <div>
+                       <% categories.forEach(function(category) { %>
+                      <input type="checkbox" class='categoryCheckbox' name="categories" id="<%= category.id %>" value="<%= category.id %>">
+                      <label class="text-white" for="<%= category.category_name %>"><%= category.category_name %></label>
+                      
+                  <br/>
+                  <input type="hidden" name="" value=""><label for=""></label>
+                 <% }); %>
+                   </div>
+                <br>
+                <input class="btn btn-info" type="submit" value="Create Post" onClick="checkCat()">
+            </form>
+        
     </div>
 <% }else if (title == 'Delete User') { %>
      
 <% }else if (title == 'Update Author') { %>
-     <div class="col-sm-8">    
-        <div class="jumbotron">
-            <form action="" method="post">
+     <div class="col-sm-12">    
+        <div class="jumbotron glassmorphism">
+            <form action="/blog/author/<%= author.id %>/update" method="post" class="glassmorphism">
               <h2 >Update Author</h2>
               Username:<br>
               <input class="form-control" style="margin:1rem 0" type="text" name="username" value= <%= author.username %>>
@@ -237,7 +368,7 @@
               Phone Number:<br>
               <input class="form-control" style="margin:1rem 0" type="number" name="mobile" placeholder=<%= author.mobile %>>
               <br><br>
-              <input class="btn btn-info" type="submit" value="Submit">
+              <input class="btn btn-info" type="submit" value="Update Author">
             </form>
         </div>
     </div>
@@ -250,4 +381,21 @@
     </div>
 <% } %>
 
+<!--script for the category check function-->
+<script>
+    function checkCat() {
+    var checkBoxes = document.getElementsByClassName( 'categoryCheckbox' );
+    var isChecked = false;
+    for (var i = 0; i < checkBoxes.length; i++) {
+        if ( checkBoxes[i].checked ) {
+            isChecked = true;
+        };
+    };
+    if ( isChecked ) {
+        
+        } else {
+            alert( 'Please, check at least one checkbox!' );
+        }   
+}
+</script>
 

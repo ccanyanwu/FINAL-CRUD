@@ -21,7 +21,7 @@ router.post('/post/create', post_controller.post_create_post);
 router.get('/post/:post_id/delete', post_controller.post_delete_get);
 
 // POST request to delete Post.
-//router.post('/post/:post_id/delete', post_controller.post_delete_post);
+router.post('/post/:post_id/delete', post_controller.post_delete_post);
 
 // GET request to update Post.
 router.get('/post/:post_id/update', post_controller.post_update_get);
@@ -46,6 +46,8 @@ router.post('/author/create', author_controller.author_create_post);
 // // GET request to delete Author.
  router.get('/author/:author_id/delete', author_controller.author_delete_get);
 
+// POST request to delete Author
+router.post('/author/:author_id/delete', author_controller.author_delete_post);
 
 // // GET request to update Author.
  router.get('/author/:author_id/update', author_controller.author_update_get);
@@ -73,8 +75,8 @@ router.get('/category/create', category_controller.category_create_get);
 // // GET request to delete Category.
  router.get('/category/:category_id/delete', category_controller.category_delete_get);
 
-// // POST request to delete Category.
-// router.post('/category/:category_id/delete', category_controller.category_delete_post);
+ // POST request to delete Category.
+ router.post('/category/:category_id/delete', category_controller.category_delete_post);
 
 // // GET request to update Category.
  router.get('/category/:category_id/update', category_controller.category_update_get);

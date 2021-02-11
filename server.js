@@ -5,6 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var ejsLayouts = require('express-ejs-layouts');
+var moment = require('moment');
 
 var routes = require('./routes/index');
 var blog  = require('./routes/blog');

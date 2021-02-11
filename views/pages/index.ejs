@@ -1,10 +1,38 @@
-<div class="jumbotron">
+<div class="jumbotron homepage" style=" color:#f2f2f2;padding-bottom: 12rem;">
     <h1 class="display-4"><%= title %></h1>
-    <!--p>Total posts in database is <span class="badge badge-primary badge-pill"><!--%= postCount.count % --><!--/span></p-->
-    <p>Total authors in database is <span class="badge badge-primary badge-pill"><%= authorCount.count %></span></p>
-    <p>Total users in database is <span class="badge badge-primary badge-pill"><%= userCount.count %></span></p>
-    <p>Total comments in database is <span class="badge badge-primary badge-pill"><%= commentCount.count %></span></p>
-    <p>Total categories in database is <span class="badge badge-primary badge-pill"><%= categoryCount.count %></span></p>
+    
+    <!--p>Total authors in database is <span class="badge badge-primary badge-pill"><%= authorCount.count %></span></p>
 
+    <p>Total categories in database is <span class="badge badge-primary badge-pill"><%= categoryCount.count %></span></p>
+    
+    <p>Total comments in database is <span class="badge badge-primary badge-pill"><%= commentCount.count %></span></p>
+    
+    <p>Total posts in database is <span class="badge badge-primary badge-pill"><%= postCount.count %></span></p-->
+        <div class="card-deck">
+            <div class="card">
+              <div class="card-body">
+                  <h3 class="text-left">AUTHOR(S)</h3>
+                <p class="card-text text-right"><%= authorCount.count %></p>
+              </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="text-left">CATEGORY(IES)</h3>
+                  <p class="card-text text-right"><%= categoryCount.count %></p>
+                </div>
+              </div>
+              <div class="card">
+                <div class="card-body">
+                    <h3 class="text-left">COMMENT(S)</h3>
+                  <p class="card-text text-right"><%= commentCount.count %></p>
+                </div>
+              </div>
+              <div class="card">
+                <div class="card-body">
+                    <h3 class="text-left">POST(S)</h3>
+                  <p class="card-text text-right"><%= postCount.count %></p>
+                </div>
+              </div>
+        </div>
 </div>
 

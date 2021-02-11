@@ -2,11 +2,11 @@ const Sequelize = require('sequelize');
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   var Author = sequelize.define('Author', {
-      author_id : {
+     /* author_id : {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true,
-      },
+      },*/
     first_name: { 
         type: DataTypes.STRING,
         allowNull: false,
@@ -40,7 +40,8 @@ module.exports = (sequelize, DataTypes) => {
         validate: {
           is: ["^[a-z]+$",'i'] 
       }
-    }*/password: {
+    }*/
+    password: {
    type: Sequelize.STRING,
    validate: {
       len: { 
@@ -50,21 +51,22 @@ module.exports = (sequelize, DataTypes) => {
    },
 },
     mobile:{
-        type: DataTypes.INTEGER,
+        type: DataTypes.BIGINT,
         allowNull: false,
         validate: {
             isNumeric : true
         }
     }
     
+    
   });
 
-  /*/ create association between author and post
-  //* an author can has many posts
+   //create association between author and post
+  // an author can has many posts
   Author.associate = function(models) {
     models.Author.hasMany(models.Post);
   };
-*/
+
 
   return Author;
 };

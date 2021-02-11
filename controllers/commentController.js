@@ -1,52 +1,51 @@
 var Comment = require('../models/comment');
 var models = require('../models');
+var moment = require('moment');
 
 // Display author create form on GET.
-exports.comment_create_get = function(req, res, next) {
-        // create author GET controller logic here 
+exports.comment_create_get = async function(req, res, next) {
+        //render a comment form 
         res.render('forms/comment_form', { title: 'Create Comment',  layout: 'layouts/detail'});
-        console.log(232);
+        
 };
 
 // Handle user create on POST.
-exports.comment_create_post = function(req, res, next) {
-     
-      models.Comment.create({
+exports.comment_create_post = async function(req, res, next) {
+        // create comment POST controller logic here
+     let post_id = req.body.post_id
+     models.Comment.create({
             comment_body: req.body.comment_body,
-            post_id: req.body.post_id
+            PostId: req.body.post_id
         }).then(function() {
             console.log("Comment created successfully");
            // check if there was an error during post creation
-            res.redirect('/blog/comments'); 
+            res.redirect('/blog/post/' + post_id);
       });
+        
      
 };
 
-// Display user delete form on GET.
-exports.user_delete_get = function(req, res, next) {
-        // GET logic to delete an user here
-        models.User.destroy({
-            // find the user_id to delete from database
+// Display comment delete form on GET.
+exports.comment_delete_get = function(req, res, next) {
+        models.Comment.destroy({
+            // find the comment_id to delete from database
             where: {
-              id: req.params.user_id
+              id: req.params.comment_id
             }
           }).then(function() {
-           // If a user gets deleted successfully, we just redirect to users list
+           // If a comment gets deleted successfully, we just redirect to posts list
            // no need to render a page
-            //res.redirect('/blog/users');
-            console.log("User deleted successfully");
-          });
-        // renders user delete page
-        res.render('pages/user_delete', { title: 'Delete User',  layout: 'layouts/detail'} );
-};
+            res.redirect('/blog/comments');
+            console.log("Comment deleted successfully");
+          });};
 
 // Handle user delete on POST.
-exports.comment_delete_get = function(req, res, next) {
+exports.comment_delete_post = function(req, res, next) {
         
         models.Comment.destroy({
             // find the user_id to delete from database
             where: {
-              comment_id: req.params.comment_id
+              id: req.params.comment_id
             }
           }).then(function() {
           
@@ -80,7 +79,7 @@ exports.comment_update_post = function(req, res, next) {
           { // Clause
                 where: 
                 {
-                    comment_id: req.params.comment_id
+                    id: req.params.comment_id
                 }
             }
         //   returning: true, where: {id: req.params.post_id} 
@@ -111,8 +110,8 @@ exports.comment_detail = function(req, res, next) {
         ).then(function(comment) {
         // renders an inividual post details page
         
-        res.render('pages/comment_detail', { title: 'Comment Details', comment: comment, layout: 'layouts/detail'} );
-        console.log(comment.name);
+        res.render('pages/comment_detail', { title: 'Comment Details', comment: comment, moment:moment, layout: 'layouts/detail'} );
+        //console.log(comment.name);
         //console.log("User details renders successfully");
         });
 };
